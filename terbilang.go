@@ -127,15 +127,11 @@ type Setting struct {
 	decimal string
 }
 
-func ToWord(targetNumber float64, setting Setting) string {
+func ToWord(targetNumber float64) string {
 	var result string = ""
 
-	if setting == (Setting{}) {
-		setting.decimal = "."
-	}
-
 	strOfTargetNumber := strconv.FormatFloat(targetNumber, 'f', 6, 64)
-	numberComponent := strings.Split(strOfTargetNumber, setting.decimal)
+	numberComponent := strings.Split(strOfTargetNumber, ".")
 
 	majorSegment, errStrConvert := strconv.Atoi(numberComponent[0])
 	if errStrConvert != nil {
