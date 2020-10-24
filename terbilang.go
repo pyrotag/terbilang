@@ -3,6 +3,7 @@ package terbilang
 import (
 	"fmt"
 	"math"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -42,42 +43,30 @@ func convertNumber(someNumber int) string {
 			}
 
 		} else if (length%3) == 2 && arrStrNum[i] != "0" {
-
+			num := ""
+			if arrStrNum[i] == "1" {
+				num = "seratus"
+			} else {
+				num = fmt.Sprintf("%s%s", digitToUnit(length))
+			}
+			result = fmt.Sprintf("%s %s", result, num)
 		} else if (length%3) == 1 && arrStrNum[i] != "0" {
-
+			if arrStrNum[i] == "1" {
+				if arrStrNum[i+1] == "0" {
+					result = fmt.Sprintf("%s %s", result, "sepuluh")
+				} else {
+					isBelasan = true
+				}
+			} else {
+				targetNum, _ := strconv.Atoi(arrStrNum[i])
+				result = fmt.Sprintf("%s %s puluh", result, numberToText(targetNum))
+			}
 		}
 	}
 
-	//for (let i = 0; i < angka.length; i++) {
-	// 	const length = angka.length - 1 - i
-	// 	if (length % 3 == 0) {
-	// 	  const num = (angka[i] == 1 && (isBelasan || (digitToUnit(length) == 'ribu' && ((angka[i - 2] == undefined || angka[i - 2] == 0) && (angka[i - 1] == undefined || angka[i - 1] == 0))))) ? 'se' : `${numberToText(angka[i])} `
-	// 	  result += ` ${num}`
-
-	// 	  if ((angka[i - 2] && angka[i - 2] != 0) || (angka[i - 1] && angka[i - 1] != 0) || angka[i] != 0) {
-	// 		printUnit = true
-	// 	  }
-	// 	  if (printUnit) {
-	// 		printUnit = false
-	// 		result += ((isBelasan) ? 'belas ' : '') + digitToUnit(length)
-	// 		if (isBelasan) {
-	// 		  isBelasan = false
-	// 		}
-	// 	  }
-	// 	} else if (length % 3 == 2 && angka[i] != 0) {
-	// 	  result += ` ${(angka[i] == 1) ? 'se' : numberToText(angka[i]) + ' '}ratus`
-	// 	} else if (length % 3 == 1 && angka[i] != 0) {
-	// 	  if (angka[i] == 1) {
-	// 		if (angka[i + 1] == 0) {
-	// 		  result += ' sepuluh'
-	// 		} else {
-	// 		  isBelasan = true
-	// 		}
-	// 	  } else {
-	// 		result += ` ${numberToText(angka[i])} puluh`
-	// 	  }
-	// 	}
-	//   }
+	result = strings.Trim(result, " ")
+	reg := regexp.MustCompile(`\s+`)
+	result = reg.ReplaceAllString(result, " ")
 
 	return result
 }
