@@ -1,0 +1,5 @@
+package terbilang
+
+func toWord() {
+
+}
