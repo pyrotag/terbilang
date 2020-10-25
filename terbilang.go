@@ -2,7 +2,6 @@ package terbilang
 
 import (
 	"fmt"
-	"log"
 	"math"
 	"regexp"
 	"strconv"
@@ -85,7 +84,6 @@ func convertNumberafterComma(strNumber string) string {
 	if len(arrayOfLetter) >= 1 {
 		arrayOfWord = append(arrayOfWord, "koma")
 		for _, i := range arrayOfLetter {
-			log.Println(i)
 			j, _ := strconv.Atoi(i)
 			if j == 0 {
 				arrayOfWord = append(arrayOfWord, "nol")
