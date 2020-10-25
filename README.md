@@ -1,7 +1,7 @@
 # Terbilang
 Golang library to convert Number to Word in Bahasa/Indonesia.
 
-This repository is inspiration is based from https://github.com/develoka/angka-terbilang-js  
+This repository inspiration is based from https://github.com/develoka/angka-terbilang-js  
 
 ## Install
 
