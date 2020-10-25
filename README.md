@@ -1,6 +1,29 @@
-# terbilang
-Golang library to convert Indonesia Rupiah digit to word
+# Terbilang
+Golang library to convert Number to Word in Bahasa/Indonesia.
 
-example : 
-12000  - Dua belas ribu
-111111 - Seratus sebelas ribu seratus sebelas
+## Install
+
+```
+go get -u github.com/pyrotag/terbilang
+```
+
+## Usage 
+```
+import (
+    terbilang "github.com/pyrotag/terbilang"
+)
+
+wordResultFromString := terbilang.FromString{"1999"}.ToWord()
+// Result 
+// Seribu sembilan ratus sembilan puluh sembilan
+
+wordResultFromInt := terbilang.FromInt{1525000}.ToWord()
+// Result 
+// Satu juta lima ratus dua puluh lima ribu
+
+wordResultFromInt := terbilang.FromFloat{153.192311}.ToWord()
+// Result 
+// Seratus lima puluh tiga koma satu sembilan dua tiga satu satu
+
+
+```
