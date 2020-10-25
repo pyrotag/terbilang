@@ -18,3 +18,18 @@ func TestConvertNumber(t *testing.T) {
 	fmt.Println(result)
 	assert.True(t, result == "duabelas juta tiga ratus empat puluh empat ribu tiga ratus dua puluh satu")
 }
+
+func TestFromInt(t *testing.T) {
+	result := FromInt{Value: 2000}.ToWord()
+	fmt.Println(result)
+}
+
+func TestFromFloat(t *testing.T) {
+	result := FromFloat{Value: 2150000.00001}.ToWord()
+	fmt.Println(result)
+}
+
+func TestFromString(t *testing.T) {
+	result := FromString{"15150"}.ToWord()
+	fmt.Println(result)
+}

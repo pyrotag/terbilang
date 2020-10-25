@@ -2,6 +2,7 @@ package terbilang
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"regexp"
 	"strconv"
@@ -16,13 +17,10 @@ func convertNumber(someNumber int) string {
 	stringOfNumber := strconv.Itoa(someNumber)
 	arrStrNum := strings.Split(stringOfNumber, "")
 
-	fmt.Println("ARR LENGTH", len(arrStrNum))
-
 	for i := 0; i < len(arrStrNum); i++ {
 		length := len(arrStrNum) - 1 - i
-		fmt.Println("LENGTH", length)
+
 		if (length % 3) == 0 {
-			fmt.Println("CONDITION A")
 			num := ""
 			if arrStrNum[i] == "1" && (isBelasan || (digitToUnit(length) == "ribu" && ((i-2 >= 0 && arrStrNum[i-2] == "" || arrStrNum[i-2] == "0") && arrStrNum[i-1] == "" || arrStrNum[i-1] == "0"))) {
 				num = "se"
@@ -31,9 +29,7 @@ func convertNumber(someNumber int) string {
 				num = numberToText(targetNum)
 			}
 
-			fmt.Println("CONDITION A -", result, num)
 			result = fmt.Sprintf("%s %s", result, num)
-			fmt.Println("CONDITION A - RESULT", result)
 
 			if (i-1 >= 0) && (i-2 >= 0) {
 				if arrStrNum[i-2] != "0" || arrStrNum[i-1] != "0" || arrStrNum[i] != "0" {
@@ -52,7 +48,6 @@ func convertNumber(someNumber int) string {
 			}
 
 		} else if (length%3) == 2 && arrStrNum[i] != "0" {
-			fmt.Println("CONDITION B")
 			num := ""
 			if arrStrNum[i] == "1" {
 				num = "seratus"
@@ -61,9 +56,7 @@ func convertNumber(someNumber int) string {
 				num = fmt.Sprintf("%s ratus", numberToText(targetNum))
 			}
 			result = fmt.Sprintf("%s %s", result, num)
-			fmt.Println("CONDITION B - RESULT", result)
 		} else if (length%3) == 1 && arrStrNum[i] != "0" {
-			fmt.Println("CONDITION C")
 			if arrStrNum[i] == "1" {
 				if arrStrNum[i+1] == "0" {
 					result = fmt.Sprintf("%s %s", result, "sepuluh")
@@ -74,7 +67,6 @@ func convertNumber(someNumber int) string {
 				targetNum, _ := strconv.Atoi(arrStrNum[i])
 				result = fmt.Sprintf("%s %s puluh", result, numberToText(targetNum))
 			}
-			fmt.Println("CONDITION C - RESULT", result)
 		}
 	}
 
@@ -85,17 +77,21 @@ func convertNumber(someNumber int) string {
 	return result
 }
 
-func convertNumberafterComma(number int) string {
+func convertNumberafterComma(strNumber string) string {
 
-	letterOfNumber := strconv.Itoa(number)
-	arrayOfLetter := strings.Split(letterOfNumber, "")
+	arrayOfLetter := strings.Split(strNumber, "")
 	arrayOfWord := []string{}
 
 	if len(arrayOfLetter) >= 1 {
 		arrayOfWord = append(arrayOfWord, "koma")
 		for _, i := range arrayOfLetter {
+			log.Println(i)
 			j, _ := strconv.Atoi(i)
-			arrayOfWord = append(arrayOfWord, numberToText(j))
+			if j == 0 {
+				arrayOfWord = append(arrayOfWord, "nol")
+			} else {
+				arrayOfWord = append(arrayOfWord, numberToText(j))
+			}
 		}
 	}
 
@@ -130,7 +126,6 @@ func stringNumToWord(stringNum string) string {
 	var result string = ""
 
 	numberComponent := strings.Split(stringNum, ".")
-
 	majorSegment, errStrConvert := strconv.Atoi(numberComponent[0])
 	if errStrConvert != nil {
 		panic(errStrConvert)
@@ -139,11 +134,7 @@ func stringNumToWord(stringNum string) string {
 	result = convertNumber(majorSegment)
 
 	if len(numberComponent) == 2 {
-		afterCommaSegment, errStrConvert := strconv.Atoi(numberComponent[1])
-		if errStrConvert != nil {
-			panic(errStrConvert)
-		}
-		result = fmt.Sprintf("%s %s", result, convertNumberafterComma(afterCommaSegment))
+		result = fmt.Sprintf("%s %s", result, convertNumberafterComma(numberComponent[1]))
 	}
 
 	return result
@@ -167,10 +158,10 @@ func (val FromString) ToWord() string {
 }
 
 type FromInt struct {
-	Value int64
+	Value int
 }
 
 func (val FromInt) ToWord() string {
-	strOfTargetNumber := strconv.FormatInt(val.Value, 64)
+	strOfTargetNumber := strconv.Itoa(val.Value)
 	return stringNumToWord(strOfTargetNumber)
 }
