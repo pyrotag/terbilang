@@ -91,9 +91,12 @@ func convertNumberafterComma(number int) string {
 	arrayOfLetter := strings.Split(letterOfNumber, "")
 	arrayOfWord := []string{}
 
-	for _, i := range arrayOfLetter {
-		j, _ := strconv.Atoi(i)
-		arrayOfWord = append(arrayOfWord, numberToText(j))
+	if len(arrayOfLetter) >= 1 {
+		arrayOfWord = append(arrayOfWord, "koma")
+		for _, i := range arrayOfLetter {
+			j, _ := strconv.Atoi(i)
+			arrayOfWord = append(arrayOfWord, numberToText(j))
+		}
 	}
 
 	return strings.Join(arrayOfWord, " ")
@@ -123,15 +126,10 @@ func numberToText(index int) string {
 	return numbers[index-1]
 }
 
-type Setting struct {
-	decimal string
-}
-
-func ToWord(targetNumber float64) string {
+func stringNumToWord(stringNum string) string {
 	var result string = ""
 
-	strOfTargetNumber := strconv.FormatFloat(targetNumber, 'f', 6, 64)
-	numberComponent := strings.Split(strOfTargetNumber, ".")
+	numberComponent := strings.Split(stringNum, ".")
 
 	majorSegment, errStrConvert := strconv.Atoi(numberComponent[0])
 	if errStrConvert != nil {
@@ -145,8 +143,34 @@ func ToWord(targetNumber float64) string {
 		if errStrConvert != nil {
 			panic(errStrConvert)
 		}
-		result = fmt.Sprintf("%s koma %s", result, convertNumberafterComma(afterCommaSegment))
+		result = fmt.Sprintf("%s %s", result, convertNumberafterComma(afterCommaSegment))
 	}
 
 	return result
+}
+
+type FromFloat struct {
+	value float64
+}
+
+func (val FromFloat) ToWord() string {
+	strOfTargetNumber := strconv.FormatFloat(val.value, 'f', 6, 64)
+	return stringNumToWord(strOfTargetNumber)
+}
+
+type FromString struct {
+	value string
+}
+
+func (val FromString) ToWord() string {
+	return stringNumToWord(val.value)
+}
+
+type FromInt struct {
+	value int64
+}
+
+func (val FromInt) ToWord() string {
+	strOfTargetNumber := strconv.FormatInt(val.value, 64)
+	return stringNumToWord(strOfTargetNumber)
 }
