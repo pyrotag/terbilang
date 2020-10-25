@@ -150,27 +150,27 @@ func stringNumToWord(stringNum string) string {
 }
 
 type FromFloat struct {
-	value float64
+	Value float64
 }
 
 func (val FromFloat) ToWord() string {
-	strOfTargetNumber := strconv.FormatFloat(val.value, 'f', 6, 64)
+	strOfTargetNumber := strconv.FormatFloat(val.Value, 'f', 6, 64)
 	return stringNumToWord(strOfTargetNumber)
 }
 
 type FromString struct {
-	value string
+	Value string
 }
 
 func (val FromString) ToWord() string {
-	return stringNumToWord(val.value)
+	return stringNumToWord(val.Value)
 }
 
 type FromInt struct {
-	value int64
+	Value int64
 }
 
 func (val FromInt) ToWord() string {
-	strOfTargetNumber := strconv.FormatInt(val.value, 64)
+	strOfTargetNumber := strconv.FormatInt(val.Value, 64)
 	return stringNumToWord(strOfTargetNumber)
 }
