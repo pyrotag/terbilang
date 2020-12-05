@@ -1,4 +1,6 @@
 # Terbilang
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/pyrotag/terbilang)](https://pkg.go.dev/github.com/pyrotag/terbilang)
+
 Golang library to convert Number to Word in Bahasa/Indonesia.
 
 This repository inspiration is based from https://github.com/develoka/angka-terbilang-js  
