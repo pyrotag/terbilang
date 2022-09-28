@@ -31,8 +31,14 @@ func TestFromFloat(t *testing.T) {
 	assert.True(t, result == "dua juta seratus lima puluh ribu koma nol nol nol nol satu nol")
 }
 
-func TestFromString(t *testing.T) {
+func TestFromString1(t *testing.T) {
 	result := FromString{"15150"}.ToWord()
 	fmt.Println(result)
 	assert.True(t, result == "limabelas ribu seratus lima puluh")
+}
+
+func TestFromString2(t *testing.T) {
+	result := FromString{"31689"}.ToWord()
+	fmt.Println(result)
+	assert.True(t, result == "tiga puluh satu ribu enam ratus delapan puluh sembilan")
 }
