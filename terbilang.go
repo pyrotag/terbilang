@@ -21,7 +21,7 @@ func convertNumber(someNumber int) string {
 
 		if (length % 3) == 0 {
 			num := ""
-			if arrStrNum[i] == "1" && (isBelasan || (digitToUnit(length) == "ribu" && ((i-2 >= 0 && arrStrNum[i-2] == "" || arrStrNum[i-2] == "0") && arrStrNum[i-1] == "" || arrStrNum[i-1] == "0"))) {
+			if arrStrNum[i] == "1" && (isBelasan || (digitToUnit(length) == "ribu" && ((i-2 >= 0 && (arrStrNum[i-2] == "" || arrStrNum[i-2] == "0")) && arrStrNum[i-1] == "" || arrStrNum[i-1] == "0"))) {
 				num = "se"
 			} else {
 				targetNum, _ := strconv.Atoi(arrStrNum[i])

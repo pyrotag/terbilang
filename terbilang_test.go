@@ -25,6 +25,12 @@ func TestFromInt(t *testing.T) {
 	assert.True(t, result == "dua ribu")
 }
 
+func TestFromInt21000(t *testing.T) {
+	result := FromInt{Value: 21000}.ToWord()
+	fmt.Println(result)
+	assert.True(t, result == "dua puluh satu ribu")
+}
+
 func TestFromFloat(t *testing.T) {
 	result := FromFloat{Value: 2150000.00001}.ToWord()
 	fmt.Println(result)
